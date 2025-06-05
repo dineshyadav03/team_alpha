@@ -1,0 +1,17 @@
+setuptools>=65.5.1
+wheel>=0.38.4
+numpy==1.24.3
+langchain==0.1.0
+openai==1.3.0
+pinecone-client==2.2.4
+python-dotenv==1.0.0
+fastapi==0.104.1
+uvicorn==0.24.0
+pydantic==2.4.2
+python-multipart==0.0.6
+pypdf==3.17.1
+pdf-parse==1.1.1
+langchain-community==0.0.13
+tiktoken==0.5.1
+pandas==2.1.3
+pyyaml==6.0.1 

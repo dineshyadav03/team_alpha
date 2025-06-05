@@ -1,77 +1,124 @@
-# RECAP – Regulatory Compliance Assistant for Planning
+# HSA Information Assistant
 
-A RAG-based AI assistant built for HSA (Hiten Sethi Associates) to help builders and architects with regulatory compliance in Maharashtra.
+A modern AI-powered chat application for Housing Society Association (HSA) and Maharashtra regulations, built with Next.js, OpenAI, and Pinecone.
 
-## 🎯 Objective
+## Features
 
-To build a **RAG-based AI assistant** that can help:
+- 📝 Document Upload: Upload PDF and text documents about HSA and Maharashtra regulations
+- 💬 AI Chat Interface: Ask questions about uploaded documents
+- 🔍 Smart Search: Advanced document search using vector embeddings
+- 🚀 Real-time Responses: Get instant answers to your queries
+- 📱 Modern UI: Clean and responsive user interface
 
-| User Type      | Key Function                                      |
-| -------------- | ------------------------------------------------- |
-| **Builders**   | Ask "What can I build here?" by location          |
-| **Architects** | Ask "Is this plan compliant?" via document upload |
+## Tech Stack
 
-## 📍 Current Scope
+- **Frontend**: Next.js 14, React, TypeScript, TailwindCSS
+- **AI/ML**: OpenAI GPT-3.5, OpenAI Embeddings
+- **Vector Database**: Pinecone
+- **Document Processing**: PDF-Parse, LangChain
 
-| Parameter          | Value                                             |
-| ------------------ | ------------------------------------------------- |
-| **Firm**           | HSA (Hiten Sethi Associates)                      |
-| **State Focus**    | Maharashtra                                       |
-| **Document Types** | Zoning rules, DCR, parking, fire safety, setbacks |
+## Prerequisites
 
-## 🧠 Architecture Overview
+- Node.js 18+ and npm
+- OpenAI API key
+- Pinecone account and API key
 
-This project uses a **Retrieval-Augmented Generation (RAG)** architecture.
+## Setup
 
-| Layer                    | Tool/Service                                                                  | Notes                                                |
-| ------------------------ | ----------------------------------------------------------------------------- | ---------------------------------------------------- |
-| **Frontend**             | [Vercel AI SDK RAG Template](https://vercel.com/templates/next.js/ai-sdk-rag) | Built on Next.js with chat UI and OpenAI integration |
-| **Backend**              | Node.js API Routes (via Vercel template)                                      | You can extend with custom endpoints                 |
-| **Vector DB**            | Supabase with pgvector                                                        | Stores embeddings + metadata                         |
-| **Embeddings**           | OpenAI (`text-embedding-ada-002`)                                             | Converts docs into vectors for search                |
-| **LLM**                  | OpenAI GPT-4                                                                  | Generates summaries, compliance feedback             |
-| **Chunking & Retrieval** | LangChain / LlamaIndex                                                        | Parses, chunks, tags metadata, and searches          |
-
-## 📁 Project Structure
-
-```
-recap-regulatory-assistant/
-│
-├── /data/              ← Raw files from HSA (PDFs, PNGs)
-├── /scripts/           ← Parsing + embedding logic
-├── /rag/               ← RAG pipeline logic
-├── /utils/             ← Supabase + metadata helper functions
-├── config.yaml         ← Embedding/search configs
-├── .env                ← Secrets (OpenAI + Supabase)
-├── requirements.txt    ← Python dependencies
-└── next.config.js      ← Vercel frontend config
-```
-
-## 🚀 Getting Started
-
-1. Clone this repository
-2. Install dependencies:
+1. **Clone the repository**
    ```bash
-   npm install  # For frontend
-   pip install -r requirements.txt  # For Python backend
+   git clone <repository-url>
+   cd hsa-chat
    ```
-3. Set up your environment variables in `.env`
-4. Run the development server:
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   Create a `.env.local` file in the root directory with the following variables:
+   ```
+   # OpenAI API Key
+   OPENAI_API_KEY=your-openai-api-key
+
+   # Pinecone Configuration
+   PINECONE_API_KEY=your-pinecone-api-key
+   PINECONE_ENVIRONMENT=your-pinecone-environment
+   PINECONE_INDEX_NAME=your-index-name
+
+   # API Configuration
+   NEXT_PUBLIC_API_URL=http://localhost:8000
+   ```
+
+4. **Set up Pinecone**
+   - Create a Pinecone account at https://www.pinecone.io
+   - Create a new index with dimension 1536 (for OpenAI embeddings)
+   - Copy your API key and environment details
+
+5. **Run the development server**
    ```bash
    npm run dev
    ```
 
-## 🔐 Environment Variables
+## Usage
 
-Create a `.env` file with the following variables:
+1. **Upload Documents**
+   - Click the upload area or drag and drop files
+   - Supported formats: PDF, TXT
+   - Documents are automatically processed and stored in Pinecone
 
-```env
-OPENAI_API_KEY=sk-xxxxx
-SUPABASE_URL=https://xxxxx.supabase.co
-SUPABASE_KEY=service-role-key
-EMBEDDING_MODEL=text-embedding-ada-002
+2. **Ask Questions**
+   - Type your question in the chat interface
+   - The AI will search through uploaded documents
+   - Get instant, relevant answers based on document content
+
+3. **Example Questions**
+   - "What are the maintenance charges?"
+   - "How to file a complaint?"
+   - "What are the parking rules?"
+   - "How to apply for membership?"
+
+## Project Structure
+
+```
+├── app/                    # Next.js app directory
+│   ├── api/               # API routes
+│   │   ├── chat/         # Chat endpoint
+│   │   └── upload/       # Document upload endpoint
+│   └── page.tsx          # Main page
+├── components/            # React components
+│   └── DocumentUpload.tsx # Document upload component
+├── lib/                   # Utility functions
+│   ├── api.ts            # API client
+│   └── pinecone.ts       # Pinecone integration
+└── public/               # Static assets
 ```
 
-## 📝 License
+## How It Works
 
-This project is proprietary and confidential. All rights reserved. 
+1. **Document Processing**
+   - Documents are split into chunks
+   - Each chunk is converted to embeddings
+   - Embeddings are stored in Pinecone
+
+2. **Question Answering**
+   - User question is converted to embedding
+   - Similar document chunks are retrieved
+   - AI generates answer using retrieved context
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Support
+
+For support, please open an issue in the GitHub repository or contact the maintainers.
