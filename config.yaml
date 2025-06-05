@@ -1,0 +1,44 @@
+# RAG System Configuration
+
+# Document Processing
+chunk_size: 1000
+chunk_overlap: 200
+max_chunks_per_document: 100
+
+# Embedding Settings
+embedding_model: text-embedding-ada-002
+embedding_dimensions: 1536
+
+# Vector Search
+similarity_threshold: 0.7
+max_results: 5
+
+# Metadata Fields
+metadata_fields:
+  - state
+  - firm
+  - document_type
+  - zone
+  - rule_number
+  - page_number
+  - district
+
+# Document Types
+document_types:
+  - zoning_rules
+  - dcr
+  - parking
+  - fire_safety
+  - setbacks
+
+# Current Scope
+scope:
+  state: Maharashtra
+  firm: HSA
+  partner: "Hiten Sethi Associates"
+
+# API Settings
+api:
+  rate_limit: 100
+  timeout: 30
+  max_tokens: 4000 
