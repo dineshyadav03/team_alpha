@@ -8,7 +8,7 @@ A modern AI-powered chat application for Housing Society Association (HSA) and M
 - 💬 AI Chat Interface: Ask questions about uploaded documents
 - 🔍 Smart Search: Advanced document search using vector embeddings
 - 🚀 Real-time Responses: Get instant answers to your queries
-- 📱 Modern UI: Clean and responsive user interface
+
 
 ## Tech Stack
 
