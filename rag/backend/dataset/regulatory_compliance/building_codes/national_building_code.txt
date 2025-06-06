@@ -1,0 +1,41 @@
+National Building Code of India (NBC) - Key Requirements
+
+1. General Building Requirements
+- Minimum plot size requirements
+- Setback regulations
+- Floor Area Ratio (FAR) limits
+- Height restrictions
+- Parking requirements
+
+2. Structural Safety
+- Seismic zone considerations
+- Wind load calculations
+- Foundation requirements
+- Structural material specifications
+- Safety factor requirements
+
+3. Fire Safety
+- Fire escape routes
+- Fire fighting equipment
+- Smoke detection systems
+- Emergency lighting
+- Fire resistance ratings
+
+4. Accessibility
+- Universal design principles
+- Ramp specifications
+- Elevator requirements
+- Restroom accessibility
+- Signage requirements
+
+Metadata:
+{
+    "document_type": "building_code",
+    "version": "1.0",
+    "last_updated": "2024-03-15",
+    "applicable_regions": ["India"],
+    "category": "regulatory_compliance",
+    "subcategory": "building_codes",
+    "authority": "Bureau of Indian Standards",
+    "status": "active"
+} 

@@ -1,124 +1,233 @@
-# HSA Information Assistant
+# HSA Document RAG System
 
-A modern AI-powered chat application for Housing Society Association (HSA) and Maharashtra regulations, built with Next.js, OpenAI, and Pinecone.
+A Retrieval-Augmented Generation (RAG) system for HSA (Health Sciences Authority) documents, built with LangChain, OpenAI, and Pinecone. This system enables intelligent document processing, storage, and querying for HSA regulations and medical guidelines.
 
-## Features
+## 🌟 Features
 
-- 📝 Document Upload: Upload PDF and text documents about HSA and Maharashtra regulations
-- 💬 AI Chat Interface: Ask questions about uploaded documents
-- 🔍 Smart Search: Advanced document search using vector embeddings
-- 🚀 Real-time Responses: Get instant answers to your queries
-- 📱 Modern UI: Clean and responsive user interface
+- **Document Processing**
+  - Handles PDFs and text files
+  - Advanced chunking and metadata extraction
+  - Automatic embedding generation
 
-## Tech Stack
+- **Vector Storage**
+  - Uses Pinecone for efficient vector similarity search
+  - Scalable and fast document retrieval
+  - Metadata filtering support
 
-- **Frontend**: Next.js 14, React, TypeScript, TailwindCSS
-- **AI/ML**: OpenAI GPT-3.5, OpenAI Embeddings
-- **Vector Database**: Pinecone
-- **Document Processing**: PDF-Parse, LangChain
+- **Smart Retrieval**
+  - Combines vector similarity with metadata filtering
+  - Context-aware document search
+  - Real-time query processing
 
-## Prerequisites
+- **Modern UI**
+  - Clean, responsive interface built with Next.js
+  - Real-time chat interface
+  - Document upload and management
 
-- Node.js 18+ and npm
+## 🛠️ Tech Stack
+
+- **Backend**
+  - Python 3.8+
+  - FastAPI
+  - LangChain
+  - OpenAI Embeddings
+  - Pinecone Vector Database
+
+- **Frontend**
+  - Next.js 14
+  - React
+  - TypeScript
+  - Tailwind CSS
+
+## 📋 Prerequisites
+
+- Python 3.8+
+- Node.js 16+
 - OpenAI API key
 - Pinecone account and API key
 
-## Setup
+## 🚀 Quick Start
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd hsa-chat
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Set up environment variables**
-   Create a `.env.local` file in the root directory with the following variables:
-   ```
-   # OpenAI API Key
-   OPENAI_API_KEY=your-openai-api-key
-
-   # Pinecone Configuration
-   PINECONE_API_KEY=your-pinecone-api-key
-   PINECONE_ENVIRONMENT=your-pinecone-environment
-   PINECONE_INDEX_NAME=your-index-name
-
-   # API Configuration
-   NEXT_PUBLIC_API_URL=http://localhost:8000
-   ```
-
-4. **Set up Pinecone**
-   - Create a Pinecone account at https://www.pinecone.io
-   - Create a new index with dimension 1536 (for OpenAI embeddings)
-   - Copy your API key and environment details
-
-5. **Run the development server**
-   ```bash
-   npm run dev
-   ```
-
-## Usage
-
-1. **Upload Documents**
-   - Click the upload area or drag and drop files
-   - Supported formats: PDF, TXT
-   - Documents are automatically processed and stored in Pinecone
-
-2. **Ask Questions**
-   - Type your question in the chat interface
-   - The AI will search through uploaded documents
-   - Get instant, relevant answers based on document content
-
-3. **Example Questions**
-   - "What are the maintenance charges?"
-   - "How to file a complaint?"
-   - "What are the parking rules?"
-   - "How to apply for membership?"
-
-## Project Structure
-
-```
-├── app/                    # Next.js app directory
-│   ├── api/               # API routes
-│   │   ├── chat/         # Chat endpoint
-│   │   └── upload/       # Document upload endpoint
-│   └── page.tsx          # Main page
-├── components/            # React components
-│   └── DocumentUpload.tsx # Document upload component
-├── lib/                   # Utility functions
-│   ├── api.ts            # API client
-│   └── pinecone.ts       # Pinecone integration
-└── public/               # Static assets
+### 1. Clone the Repository
+```bash
+git clone <repository-url>
+cd team_alpha
 ```
 
-## How It Works
+### 2. Backend Setup
 
-1. **Document Processing**
-   - Documents are split into chunks
-   - Each chunk is converted to embeddings
-   - Embeddings are stored in Pinecone
+#### Install Python Dependencies
+```bash
+cd rag/backend
+pip install -r requirements.txt
+```
 
-2. **Question Answering**
-   - User question is converted to embedding
-   - Similar document chunks are retrieved
-   - AI generates answer using retrieved context
+#### Configure Environment Variables
+Create a `.env` file in `rag/backend/`:
+```env
+OPENAI_API_KEY=your_openai_api_key
+PINECONE_API_KEY=your_pinecone_api_key
+PINECONE_ENVIRONMENT=your_pinecone_environment
+PINECONE_INDEX=your_pinecone_index_name
+```
 
-## Contributing
+#### Set Up Pinecone
+1. Create a Pinecone account at [pinecone.io](https://pinecone.io)
+2. Create a new index:
+   - Name: `hsa-documents` (or your preferred name)
+   - Dimension: `1536` (for OpenAI embeddings)
+   - Metric: `cosine`
+   - Environment: Choose the closest to your location (e.g., `gcp-starter`)
+
+### 3. Frontend Setup
+
+#### Install Node.js Dependencies
+```bash
+cd frontend
+npm install
+```
+
+#### Configure Environment Variables
+Create a `.env.local` file in `frontend/`:
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
+
+## 📁 Project Structure
+
+```
+team_alpha/
+├── rag/
+│   ├── backend/
+│   │   ├── dataset/           # HSA documents
+│   │   │   ├── hsa_regulations/    # HSA regulations
+│   │   │   └── medical_guidelines/ # Medical guidelines
+│   │   ├── document_processor.py   # Document processing logic
+│   │   ├── vector_store.py        # Vector storage interface
+│   │   └── main.py               # FastAPI application
+│   └── frontend/
+│       ├── app/                    # Next.js app directory
+│       │   ├── api/               # API routes
+│       │   └── page.tsx           # Main page
+│       ├── components/            # React components
+│       │   ├── DocumentUpload.tsx # Document upload component
+│       │   └── ChatInterface.tsx  # Chat interface component
+│       └── styles/               # Tailwind CSS styles
+└── utils/
+    └── pinecone_client.py     # Pinecone integration
+```
+
+## 🚀 Usage
+
+### 1. Process Documents
+```bash
+cd rag/backend
+python process_sample_docs.py
+```
+
+### 2. Start the Backend
+```bash
+cd rag/backend
+uvicorn main:app --reload
+```
+
+### 3. Start the Frontend
+```bash
+cd frontend
+npm run dev
+```
+
+### 4. Query Documents
+- Use the web interface at `http://localhost:3000`
+- Or use the Python script:
+```bash
+cd rag/backend
+python query_documents.py
+```
+
+## 📚 API Documentation
+
+### Backend API Endpoints
+
+#### Query Documents
+```http
+POST /api/query
+Content-Type: application/json
+
+{
+    "query": "What are the HSA regulations for medical devices?",
+    "filters": {
+        "document_type": "regulation",
+        "version": "1.0"
+    }
+}
+```
+
+#### Process Documents
+```http
+POST /api/process
+Content-Type: application/json
+
+{
+    "file_path": "path/to/document.pdf",
+    "metadata": {
+        "source": "HSA",
+        "type": "regulation"
+    }
+}
+```
+
+## 🔧 Configuration
+
+### Document Processing
+- Chunk size: 1000 characters
+- Chunk overlap: 200 characters
+- Supported formats: PDF, TXT
+
+### Vector Search
+- Similarity threshold: 0.7
+- Maximum results: 5
+- Metadata filtering: Document type, version, source
+
+### Frontend Components
+- `DocumentUpload`: Handles document uploads
+- `ChatInterface`: Manages chat interactions
+- `SearchResults`: Displays search results
+
+## 🤝 Contributing
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
-## License
+## 📝 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Support
+## 🔍 Troubleshooting
 
-For support, please open an issue in the GitHub repository or contact the maintainers.
+### Common Issues
+
+1. **Pinecone Connection Error**
+   - Verify your API key and environment
+   - Check if the index exists
+   - Ensure the index dimension matches (1536)
+
+2. **Document Processing Failures**
+   - Check file format support
+   - Verify file permissions
+   - Check OpenAI API key
+
+3. **Frontend Connection Issues**
+   - Verify backend server is running
+   - Check API URL configuration
+   - Ensure CORS is properly configured
+
+## 📞 Support
+
+For support, please:
+1. Check the troubleshooting guide
+2. Open an issue in the GitHub repository
+3. Contact the maintainers

@@ -1,0 +1,55 @@
+National Cancer Institute - Architectural Design Specifications
+
+1. Building Overview
+- Project Name: National Cancer Institute
+- Location: Nagpur, Maharashtra
+- Building Type: Healthcare Facility
+- Total Area: 50,000 sq.m
+- Number of Floors: 8
+
+2. Design Elements
+- Modern healthcare architecture
+- Patient-centric design
+- Natural light optimization
+- Green building features
+- Sustainable materials
+
+3. Key Features
+- Central atrium
+- Modular patient rooms
+- Advanced medical facilities
+- Research laboratories
+- Administrative offices
+- Public spaces
+
+4. Technical Specifications
+- Structural System: RCC Frame
+- Facade: Double-glazed curtain wall
+- Roof: Green roof system
+- HVAC: Centralized with HEPA filters
+- Lighting: LED with daylight sensors
+
+5. Sustainability Features
+- Solar panels
+- Rainwater harvesting
+- Waste management system
+- Energy-efficient equipment
+- Green landscaping
+
+Metadata:
+{
+    "document_type": "architectural_design",
+    "version": "3.0",
+    "last_updated": "2024-03-15",
+    "project_id": "NCI-2024",
+    "category": "design_documents",
+    "subcategory": "architectural_drawings",
+    "status": "completed",
+    "client": "National Cancer Institute",
+    "location": "Nagpur, Maharashtra",
+    "completion_date": "2023-12-31",
+    "design_team": "HSA Design Team",
+    "building_type": "Healthcare",
+    "sustainability_rating": "LEED Gold",
+    "drawing_set": ["Floor Plans", "Elevations", "Sections", "Details"]
+} 
