@@ -15,7 +15,7 @@ A Retrieval-Augmented Generation (RAG) system for HSA (Health Sciences Authority
 - 🔍 Smart Search: Advanced document search using vector embeddings
 - 🚀 Real-time Responses: Get instant answers to your queries
 
->>>>>>> 1c18ea8007583c289c1483fc0aeb37e7f829eab4
+
 
 - **Vector Storage**
   - Uses Pinecone for efficient vector similarity search
