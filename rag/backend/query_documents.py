@@ -52,16 +52,16 @@ def main():
     # Example queries
     queries = [
         {
-            "query": "What are the key features of the National Cancer Institute?",
+            "query": "What are the main features of the NMMC Headquarters floor plan?",
             "filters": {"category": "design_documents", "subcategory": "architectural_drawings"}
         },
         {
-            "query": "What is the project schedule for NMMC Headquarters?",
-            "filters": {"category": "project_management", "subcategory": "project_schedules"}
+            "query": "Can you tell me about the fire safety regulations in Mumbai building by-laws?",
+            "filters": {"category": "regulatory_compliance", "subcategory": "building_codes"}
         },
         {
-            "query": "What are the building code requirements for fire safety?",
-            "filters": {"category": "regulatory_compliance", "subcategory": "building_codes"}
+            "query": "What are the phases of the Science Park project schedule?",
+            "filters": {"category": "project_management", "subcategory": "project_schedules"}
         }
     ]
     

@@ -1,0 +1,35 @@
+Mumbai Building By-Laws - Fire Safety Regulations
+
+This document details the specific fire safety regulations as per the Mumbai Building By-Laws applicable to commercial and residential structures.
+
+- **Fire Exits:**
+  - Minimum number and width of fire exits based on occupancy load.
+  - Clear signage and obstruction-free pathways.
+  - Exit doors to open outwards.
+
+- **Fire Fighting Equipment:**
+  - Requirement for fire extinguishers (CO2, ABC type) at specified intervals.
+  - Installation of fire hose reels on each floor.
+  - Provision for automatic sprinkler systems in basements and high-rise buildings.
+
+- **Fire Alarm Systems:**
+  - Installation of smoke detectors and heat detectors.
+  - Centralized fire alarm panel with audio-visual alarms.
+  - Integration with building management systems.
+
+- **Building Materials:**
+  - Restrictions on the use of combustible materials.
+  - Requirements for fire-resistant doors and walls.
+  - Fire-stopping provisions for service shafts.
+
+Metadata:
+{
+    "document_type": "building_code",
+    "regulations_body": "Mumbai Municipal Corporation",
+    "topic": "fire_safety",
+    "applicable_to": "commercial, residential",
+    "category": "regulatory_compliance",
+    "subcategory": "building_codes",
+    "version": "5.1",
+    "last_updated": "2023-11-10"
+} 

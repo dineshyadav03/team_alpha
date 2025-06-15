@@ -1,0 +1,42 @@
+Science Park - Project Schedule Overview
+
+This document provides an overview of the key phases and milestones for the Science Park project in Navi Mumbai.
+
+- **Phase 1: Planning & Design (Months 1-6)**
+  - Concept development and client workshops.
+  - Detailed architectural and landscape design.
+  - Regulatory approvals and clearances.
+  - Tender documentation preparation.
+
+- **Phase 2: Pre-Construction (Months 7-9)**
+  - Contractor selection and appointment.
+  - Site mobilization and groundwork.
+  - Procurement of long-lead items.
+
+- **Phase 3: Construction (Months 10-24)**
+  - Structural erection and building envelope completion.
+  - MEP (Mechanical, Electrical, Plumbing) installation.
+  - Interior fit-out and landscaping works.
+
+- **Phase 4: Commissioning & Handover (Months 25-27)**
+  - System testing and commissioning.
+  - Final inspections and defect rectification.
+  - Client training and facility handover.
+
+- **Key Milestones:**
+  - Design Approval: Month 5
+  - Construction Start: Month 10
+  - Structure Completion: Month 18
+  - Project Handover: Month 27
+
+Metadata:
+{
+    "document_type": "project_schedule",
+    "project_name": "Science Park",
+    "location": "Navi Mumbai",
+    "client": "Navi Mumbai Development Authority",
+    "category": "project_management",
+    "subcategory": "project_schedules",
+    "version": "1.5",
+    "last_updated": "2024-05-01"
+} 

@@ -1,0 +1,35 @@
+NMMC Headquarters - Architectural Floor Plan Details
+
+This document outlines the detailed floor plan specifications for the Navi Mumbai Municipal Corporation (NMMC) Headquarters.
+
+- **Ground Floor:**
+  - Main lobby with reception and waiting area.
+  - Public facilitation center with inquiry desks.
+  - Security control room.
+  - Parking access points.
+  - Service areas (electrical, plumbing).
+
+- **Typical Office Floor (Levels 1-5):**
+  - Open-plan office spaces for various departments.
+  - Enclosed cabins for department heads.
+  - Meeting rooms of various capacities (4-seater, 8-seater).
+  - Pantry and break areas on each floor.
+  - Restrooms and utility closets.
+
+- **Special Features:**
+  - Central atrium connecting all floors.
+  - Fire exits and stairwells on both ends of the building.
+  - Accessible ramps and elevators.
+  - Green walls integrated into the design.
+
+Metadata:
+{
+    "document_type": "architectural_drawing",
+    "project_name": "NMMC Headquarters",
+    "drawing_type": "floor_plan",
+    "level": "all",
+    "category": "design_documents",
+    "subcategory": "architectural_drawings",
+    "version": "4.2",
+    "last_updated": "2024-06-20"
+} 
