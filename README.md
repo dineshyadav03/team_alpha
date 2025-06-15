@@ -1,47 +1,42 @@
 # HSA Document RAG System
 
-A Retrieval-Augmented Generation (RAG) system for HSA (Health Sciences Authority) documents, built with LangChain, OpenAI, and Pinecone. This system enables intelligent document processing, storage, and querying for HSA regulations and medical guidelines.
+A Retrieval-Augmented Generation (RAG) system for HSA (Hiten Sethi & Associates) architectural documents, built with LangChain, OpenAI, and Pinecone. This system enables intelligent document processing, storage, and querying for HSA's various architectural and project management documents.
 
 ## 🌟 Features
 
-<<<<<<< HEAD
 - **Document Processing**
-  - Handles PDFs and text files
+  - Handles PDF and text documents
   - Advanced chunking and metadata extraction
   - Automatic embedding generation
-=======
-- 📝 Document Upload: Upload PDF and text documents about HSA and Maharashtra regulations
-- 💬 AI Chat Interface: Ask questions about uploaded documents
-- 🔍 Smart Search: Advanced document search using vector embeddings
-- 🚀 Real-time Responses: Get instant answers to your queries
-
->>>>>>> 1c18ea8007583c289c1483fc0aeb37e7f829eab4
+  - Supports diverse document types (Architectural Drawings, Regulations, Project Schedules, etc.)
 
 - **Vector Storage**
-  - Uses Pinecone for efficient vector similarity search
+  - Utilizes Pinecone for efficient high-dimensional vector similarity search
   - Scalable and fast document retrieval
-  - Metadata filtering support
+  - Supports advanced metadata filtering for precise search
+  - Direct upsert mechanism for robust data ingestion
 
 - **Smart Retrieval**
-  - Combines vector similarity with metadata filtering
-  - Context-aware document search
-  - Real-time query processing
+  - Combines vector similarity with metadata filtering for highly relevant results
+  - Context-aware document search for accurate responses
+  - Designed for real-time query processing
 
-- **Modern UI**
-  - Clean, responsive interface built with Next.js
-  - Real-time chat interface
-  - Document upload and management
+- **Modern UI** (Frontend part, if applicable and implemented)
+  - Clean, responsive interface built with Next.js and Tailwind CSS
+  - Real-time chat interface for natural language interaction
+  - Document upload and management capabilities
 
 ## 🛠️ Tech Stack
 
 - **Backend**
   - Python 3.8+
   - FastAPI
-  - LangChain
-  - OpenAI Embeddings
-  - Pinecone Vector Database
+  - LangChain (for document loading and splitting)
+  - OpenAI Embeddings (for text vectorization)
+  - Pinecone Vector Database (for vector storage and search)
+  - `python-dotenv` (for environment variable management)
 
-- **Frontend**
+- **Frontend** (If applicable)
   - Next.js 14
   - React
   - TypeScript
@@ -50,7 +45,7 @@ A Retrieval-Augmented Generation (RAG) system for HSA (Health Sciences Authority
 ## 📋 Prerequisites
 
 - Python 3.8+
-- Node.js 16+
+- Node.js 16+ (for frontend development)
 - OpenAI API key
 - Pinecone account and API key
 
@@ -58,7 +53,7 @@ A Retrieval-Augmented Generation (RAG) system for HSA (Health Sciences Authority
 
 ### 1. Clone the Repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/dineshyadav03/team_alpha.git
 cd team_alpha
 ```
 
@@ -68,26 +63,33 @@ cd team_alpha
 ```bash
 cd rag/backend
 pip install -r requirements.txt
+# Also install specific packages that might be missing from requirements.txt
+pip install pinecone langchain-openai langchain-community
 ```
 
 #### Configure Environment Variables
-Create a `.env` file in `rag/backend/`:
+Create a `.env` file in `rag/backend/` and populate it with your credentials:
 ```env
 OPENAI_API_KEY=your_openai_api_key
 PINECONE_API_KEY=your_pinecone_api_key
-PINECONE_ENVIRONMENT=your_pinecone_environment
-PINECONE_INDEX=your_pinecone_index_name
+PINECONE_ENVIRONMENT=us-east-1  # Based on your Pinecone console image
+PINECONE_INDEX=hsa-documents
+PORT=3000
+NODE_ENV=development
 ```
+**Note:** `PINECONE_ENVIRONMENT` is `us-east-1` as shown in your Pinecone console screenshot.
 
-#### Set Up Pinecone
-1. Create a Pinecone account at [pinecone.io](https://pinecone.io)
-2. Create a new index:
-   - Name: `hsa-documents` (or your preferred name)
-   - Dimension: `1536` (for OpenAI embeddings)
-   - Metric: `cosine`
-   - Environment: Choose the closest to your location (e.g., `gcp-starter`)
+#### Set Up Pinecone Index
+1.  Go to [Pinecone Console](https://app.pinecone.io)
+2.  Create a new index with these specifications:
+    *   Name: `hsa-documents`
+    *   Dimension: `1536` (required for OpenAI embeddings)
+    *   Metric: `cosine`
+    *   Capacity Mode: `Serverless`
+    *   Region: `us-east-1`
+    *   Deletion Protection: (Recommended to enable)
 
-### 3. Frontend Setup
+### 3. Frontend Setup (If applicable)
 
 #### Install Node.js Dependencies
 ```bash
@@ -107,80 +109,90 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 team_alpha/
 ├── rag/
 │   ├── backend/
-│   │   ├── dataset/           # HSA documents
-│   │   │   ├── hsa_regulations/    # HSA regulations
-│   │   │   └── medical_guidelines/ # Medical guidelines
-│   │   ├── document_processor.py   # Document processing logic
-│   │   ├── vector_store.py        # Vector storage interface
-│   │   └── main.py               # FastAPI application
-│   └── frontend/
+│   │   ├── dataset/           # Raw HSA documents (Architectural, Regulatory, Project Management etc.)
+│   │   │   ├── design_documents/
+│   │   │   ├── regulatory_compliance/
+│   │   │   └── project_management/
+│   │   ├── document_processor.py   # Handles document loading, chunking, and metadata extraction
+│   │   ├── vector_store.py        # Manages Pinecone interaction (embedding, upsert, search)
+│   │   ├── debug_pinecone_connection.py # Script for direct Pinecone connection debugging
+│   │   ├── pinecone_client.py     # Custom Pinecone client wrapper
+│   │   ├── dataset_processor.py   # Orchestrates processing of local dataset documents
+│   │   ├── process_sample_docs.py # Script to process sample documents for the index
+│   │   ├── query_documents.py     # Script for testing document querying
+│   │   ├── main.py               # FastAPI application entry point
+│   │   ├── rag_service.py         # Core RAG logic
+│   │   ├── requirements.txt      # Python dependencies
+│   │   └── .env                   # Environment variables for backend (ignored by Git)
+│   └── frontend/ (If applicable)
 │       ├── app/                    # Next.js app directory
-│       │   ├── api/               # API routes
-│       │   └── page.tsx           # Main page
 │       ├── components/            # React components
-│       │   ├── DocumentUpload.tsx # Document upload component
-│       │   └── ChatInterface.tsx  # Chat interface component
 │       └── styles/               # Tailwind CSS styles
-└── utils/
-    └── pinecone_client.py     # Pinecone integration
+└── .gitignore                   # Specifies files/folders to ignore in Git
 ```
 
 ## 🚀 Usage
 
 ### 1. Process Documents
+Navigate to the `rag/backend` directory and run the processing script. This will read your sample documents, convert them into embeddings, and upload them to your Pinecone index.
 ```bash
 cd rag/backend
 python process_sample_docs.py
 ```
 
-### 2. Start the Backend
+### 2. Verify Documents in Pinecone (Optional)
+To confirm documents were added to Pinecone and inspect their metadata:
+```bash
+cd rag/backend
+python debug_pinecone_connection.py
+```
+
+### 3. Start the Backend API Server
 ```bash
 cd rag/backend
 uvicorn main:app --reload
 ```
 
-### 3. Start the Frontend
+### 4. Start the Frontend (If applicable)
 ```bash
 cd frontend
 npm run dev
 ```
 
-### 4. Query Documents
-- Use the web interface at `http://localhost:3000`
-- Or use the Python script:
+### 5. Query Documents
+- Use the web interface (if frontend is running, typically at `http://localhost:3000`)
+- Or use the Python script to test queries directly:
 ```bash
 cd rag/backend
 python query_documents.py
 ```
 
-## 📚 API Documentation
+## 📚 API Documentation (Backend Endpoints)
 
-### Backend API Endpoints
+### Query Documents
+`POST /api/query`
+Content-Type: `application/json`
 
-#### Query Documents
-```http
-POST /api/query
-Content-Type: application/json
-
+```json
 {
-    "query": "What are the HSA regulations for medical devices?",
+    "query": "What are the main features of the NMMC Headquarters floor plan?",
     "filters": {
-        "document_type": "regulation",
-        "version": "1.0"
+        "category": "design_documents",
+        "subcategory": "architectural_drawings"
     }
 }
 ```
 
-#### Process Documents
-```http
-POST /api/process
-Content-Type: application/json
+### Process Documents
+`POST /api/process`
+Content-Type: `application/json`
 
+```json
 {
     "file_path": "path/to/document.pdf",
     "metadata": {
-        "source": "HSA",
-        "type": "regulation"
+        "source": "HSA-Firm",
+        "type": "architectural_drawing"
     }
 }
 ```
@@ -193,21 +205,18 @@ Content-Type: application/json
 - Supported formats: PDF, TXT
 
 ### Vector Search
-- Similarity threshold: 0.7
-- Maximum results: 5
-- Metadata filtering: Document type, version, source
-
-### Frontend Components
-- `DocumentUpload`: Handles document uploads
-- `ChatInterface`: Manages chat interactions
-- `SearchResults`: Displays search results
+- Embedding Dimension: 1536 (for OpenAI embeddings)
+- Metric: Cosine Similarity
+- Similarity threshold: 0.7 (can be adjusted in `query_documents.py` or service logic)
+- Maximum results: 5 (can be adjusted in `query_documents.py` or service logic)
+- Metadata filtering: Customizable based on fields like `document_type`, `version`, `source`, `category`, `subcategory`, `project_name`.
 
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
+2. Create a feature branch (`git checkout -b feature/your-feature-name`)
+3. Commit your changes (`git commit -m "feat: Add your feature"`)
+4. Push to the branch (`git push origin feature/your-feature-name`)
 5. Create a Pull Request
 
 ## 📝 License
@@ -218,24 +227,30 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### Common Issues
 
-1. **Pinecone Connection Error**
-   - Verify your API key and environment
-   - Check if the index exists
-   - Ensure the index dimension matches (1536)
+1.  **Pinecone Connection Errors / No Vectors Detected in Index**
+    *   **Verify `.env` file:** Ensure `PINECONE_API_KEY`, `PINECONE_ENVIRONMENT` (`us-east-1`), and `PINECONE_INDEX` (`hsa-documents`) are *exactly* correct in `rag/backend/.env`. No extra spaces or incorrect characters.
+    *   **Recreate Pinecone Index:** If persistent issues, try deleting and recreating your `hsa-documents` index directly in the [Pinecone Console](https://app.pinecone.io) with the correct `1536` dimension and `cosine` metric.
+    *   **Run `debug_pinecone_connection.py`:** This script performs a direct, isolated test of your Pinecone connection and upsert. Its logs are critical for pinpointing issues.
 
-2. **Document Processing Failures**
-   - Check file format support
-   - Verify file permissions
-   - Check OpenAI API key
+2.  **Document Processing Failures**
+    *   Check for `ModuleNotFoundError` and ensure all dependencies in `requirements.txt` (and those installed manually like `pinecone`, `langchain-openai`, `langchain-community`) are installed.
+    *   Verify file paths and permissions for documents in `rag/backend/dataset/`.
+    *   Ensure your `OPENAI_API_KEY` is correctly set in `.env`.
 
-3. **Frontend Connection Issues**
-   - Verify backend server is running
-   - Check API URL configuration
-   - Ensure CORS is properly configured
+3.  **Frontend Connection Issues**
+    *   Verify the backend server (`uvicorn main:app --reload`) is running.
+    *   Check `NEXT_PUBLIC_API_URL` in `frontend/.env.local`.
+    *   Ensure CORS is properly configured on the backend (FastAPI typically handles this).
+
+### Still Stuck?
+
+1.  Double-check all environment variable values against your cloud provider consoles.
+2.  Clear Python cache: `python -m py_compile --clear-cache` (or delete `__pycache__` folders).
+3.  Provide full console output of errors when seeking support.
 
 ## 📞 Support
 
 For support, please:
-1. Check the troubleshooting guide
-2. Open an issue in the GitHub repository
-3. Contact the maintainers
+1. Check the troubleshooting guide above.
+2. Open an issue in the GitHub repository.
+3. Contact the maintainers (if specified in the project).
