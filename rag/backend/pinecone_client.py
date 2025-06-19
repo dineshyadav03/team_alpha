@@ -1,7 +1,7 @@
 import os
 from typing import List, Dict, Any, Optional
-from pinecone import Pinecone as _PineconeConnection  # Alias for the actual Pinecone client
-from langchain_openai import OpenAIEmbeddings
+from pinecone import Pinecone
+from openai import OpenAI
 from dotenv import load_dotenv
 import logging
 
@@ -13,25 +13,58 @@ class PineconeClient:
         """Initialize Pinecone client with configuration."""
         load_dotenv()
         
-        # Get environment variables
-        self.api_key = os.getenv('PINECONE_API_KEY')
-        self.environment = os.getenv('PINECONE_ENVIRONMENT')
-        self.index_name = os.getenv('PINECONE_INDEX')
+        # Pinecone configuration
+        self.api_key = os.getenv("PINECONE_API_KEY")
+        self.environment = os.getenv("PINECONE_ENVIRONMENT")
+        self.index_name = os.getenv("PINECONE_INDEX_NAME")
         
-        if not all([self.api_key, self.environment, self.index_name]):
-            raise ValueError("Missing Pinecone environment variables. Please check your .env file.")
+        # OpenAI configuration
+        self.openai_api_key = os.getenv("OPENAI_API_KEY")
+        self.openai_client = OpenAI(api_key=self.openai_api_key)
         
-        # Initialize Pinecone connection instance
-        self.pinecone_connection = _PineconeConnection(api_key=self.api_key, environment=self.environment)
-        
-        # Get index
-        if self.index_name not in self.pinecone_connection.list_indexes().names():
-            raise ValueError(f"Index '{self.index_name}' not found. Please create it in Pinecone console.")
-        
-        self.index = self.pinecone_connection.Index(self.index_name)
-        self.embeddings = OpenAIEmbeddings()
-        
-        logger.info(f"Pinecone client initialized with index: {self.index_name}")
+        if not all([self.api_key, self.environment, self.index_name, self.openai_api_key]):
+            raise ValueError("Missing required environment variables")
+
+    def initialize(self):
+        """Initialize Pinecone client and create index if it doesn't exist"""
+        try:
+            # Initialize Pinecone client
+            self.client = Pinecone(api_key=self.api_key)
+            
+            # Create index if it doesn't exist
+            if self.index_name not in self.client.list_indexes().names():
+                self.client.create_index(
+                    name=self.index_name,
+                    dimension=1536,  # OpenAI embedding dimension
+                    metric="cosine"
+                )
+                logger.info(f"Created new Pinecone index: {self.index_name}")
+            
+            # Get index
+            self.index = self.client.Index(self.index_name)
+            logger.info(f"Connected to Pinecone index: {self.index_name}")
+            
+        except Exception as e:
+            logger.error(f"Failed to initialize Pinecone: {str(e)}")
+            raise
+
+    def get_index(self):
+        """Get the Pinecone index"""
+        if not hasattr(self, 'index'):
+            self.initialize()
+        return self.index
+
+    def get_embedding(self, text: str):
+        """Get embedding for text using OpenAI"""
+        try:
+            response = self.openai_client.embeddings.create(
+                model="text-embedding-ada-002",
+                input=text
+            )
+            return response.data[0].embedding
+        except Exception as e:
+            logger.error(f"Failed to get embedding: {str(e)}")
+            raise
 
     def store_documents(self, documents: List[Dict[str, Any]], batch_size: int = 100) -> None:
         """
@@ -48,7 +81,7 @@ class PineconeClient:
                 
                 # Generate embeddings for the batch
                 texts = [doc['content'] for doc in batch]
-                embeddings = self.embeddings.embed_documents(texts)
+                embeddings = self.get_embedding(texts[0])  # Assuming all documents in the batch have the same embedding
                 
                 # Prepare vectors for upsert
                 vectors = []
@@ -64,7 +97,7 @@ class PineconeClient:
                     vectors.append(vector)
                 
                 # Upsert to Pinecone
-                self.index.upsert(vectors=vectors)
+                self.get_index().upsert(vectors=vectors)
                 logger.info(f"Stored {len(vectors)} documents in Pinecone")
                 
         except Exception as e:
@@ -88,10 +121,10 @@ class PineconeClient:
         """
         try:
             # Generate embedding for the query
-            query_embedding = self.embeddings.embed_query(query)
+            query_embedding = self.get_embedding(query)
             
             # Search in Pinecone
-            results = self.index.query(
+            results = self.get_index().query(
                 vector=query_embedding,
                 top_k=top_k,
                 include_metadata=True,
@@ -122,7 +155,7 @@ class PineconeClient:
             ids: List of document IDs to delete
         """
         try:
-            self.index.delete(ids=ids)
+            self.get_index().delete(ids=ids)
             logger.info(f"Deleted {len(ids)} documents from Pinecone")
         except Exception as e:
             logger.error(f"Error deleting documents: {str(e)}")
@@ -133,7 +166,7 @@ class PineconeClient:
         Get the total number of documents in the index.
         """
         try:
-            stats = self.index.describe_index_stats()
+            stats = self.get_index().describe_index_stats()
             # Assuming a single namespace or summing across all
             total_count = sum(namespace.vector_count for namespace in stats.namespaces.values())
             return total_count
@@ -149,14 +182,14 @@ class PineconeClient:
         try:
             # Perform a query with an empty vector to get some results, if any exist
             # This is a hacky way to get a sample if you don't know any IDs
-            stats = self.index.describe_index_stats()
+            stats = self.get_index().describe_index_stats()
             if stats.total_vector_count == 0:
                 logger.info("No vectors in the index to fetch.")
                 return None
             
             # Query with a dummy vector to get nearest neighbors, assuming they exist
-            dummy_embedding = self.embeddings.embed_query("sample query") # Generate a dummy embedding
-            results = self.index.query(
+            dummy_embedding = self.get_embedding("sample query") # Generate a dummy embedding
+            results = self.get_index().query(
                 vector=dummy_embedding,
                 top_k=top_k,
                 include_metadata=True

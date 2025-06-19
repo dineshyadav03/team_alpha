@@ -77,17 +77,16 @@ PINECONE_INDEX=hsa-documents
 PORT=3000
 NODE_ENV=development
 ```
-**Note:** `PINECONE_ENVIRONMENT` is `us-east-1` as shown in your Pinecone console screenshot.
 
 #### Set Up Pinecone Index
-1.  Go to [Pinecone Console](https://app.pinecone.io)
-2.  Create a new index with these specifications:
-    *   Name: `hsa-documents`
-    *   Dimension: `1536` (required for OpenAI embeddings)
-    *   Metric: `cosine`
-    *   Capacity Mode: `Serverless`
-    *   Region: `us-east-1`
-    *   Deletion Protection: (Recommended to enable)
+1. Go to [Pinecone Console](https://app.pinecone.io)
+2. Create a new index with these specifications:
+   * Name: `hsa-documents`
+   * Dimension: `1536` (required for OpenAI embeddings)
+   * Metric: `cosine`
+   * Capacity Mode: `Serverless`
+   * Region: `us-east-1`
+   * Deletion Protection: (Recommended to enable)
 
 ### 3. Frontend Setup (If applicable)
 
@@ -227,26 +226,26 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### Common Issues
 
-1.  **Pinecone Connection Errors / No Vectors Detected in Index**
-    *   **Verify `.env` file:** Ensure `PINECONE_API_KEY`, `PINECONE_ENVIRONMENT` (`us-east-1`), and `PINECONE_INDEX` (`hsa-documents`) are *exactly* correct in `rag/backend/.env`. No extra spaces or incorrect characters.
-    *   **Recreate Pinecone Index:** If persistent issues, try deleting and recreating your `hsa-documents` index directly in the [Pinecone Console](https://app.pinecone.io) with the correct `1536` dimension and `cosine` metric.
-    *   **Run `debug_pinecone_connection.py`:** This script performs a direct, isolated test of your Pinecone connection and upsert. Its logs are critical for pinpointing issues.
+1. **Pinecone Connection Errors / No Vectors Detected in Index**
+   * **Verify `.env` file:** Ensure `PINECONE_API_KEY`, `PINECONE_ENVIRONMENT` (`us-east-1`), and `PINECONE_INDEX` (`hsa-documents`) are *exactly* correct in `rag/backend/.env`. No extra spaces or incorrect characters.
+   * **Recreate Pinecone Index:** If persistent issues, try deleting and recreating your `hsa-documents` index directly in the [Pinecone Console](https://app.pinecone.io) with the correct `1536` dimension and `cosine` metric.
+   * **Run `debug_pinecone_connection.py`:** This script performs a direct, isolated test of your Pinecone connection and upsert. Its logs are critical for pinpointing issues.
 
-2.  **Document Processing Failures**
-    *   Check for `ModuleNotFoundError` and ensure all dependencies in `requirements.txt` (and those installed manually like `pinecone`, `langchain-openai`, `langchain-community`) are installed.
-    *   Verify file paths and permissions for documents in `rag/backend/dataset/`.
-    *   Ensure your `OPENAI_API_KEY` is correctly set in `.env`.
+2. **Document Processing Failures**
+   * Check for `ModuleNotFoundError` and ensure all dependencies in `requirements.txt` (and those installed manually like `pinecone`, `langchain-openai`, `langchain-community`) are installed.
+   * Verify file paths and permissions for documents in `rag/backend/dataset/`.
+   * Ensure your `OPENAI_API_KEY` is correctly set in `.env`.
 
-3.  **Frontend Connection Issues**
-    *   Verify the backend server (`uvicorn main:app --reload`) is running.
-    *   Check `NEXT_PUBLIC_API_URL` in `frontend/.env.local`.
-    *   Ensure CORS is properly configured on the backend (FastAPI typically handles this).
+3. **Frontend Connection Issues**
+   * Verify the backend server (`uvicorn main:app --reload`) is running.
+   * Check `NEXT_PUBLIC_API_URL` in `frontend/.env.local`.
+   * Ensure CORS is properly configured on the backend (FastAPI typically handles this).
 
 ### Still Stuck?
 
-1.  Double-check all environment variable values against your cloud provider consoles.
-2.  Clear Python cache: `python -m py_compile --clear-cache` (or delete `__pycache__` folders).
-3.  Provide full console output of errors when seeking support.
+1. Double-check all environment variable values against your cloud provider consoles.
+2. Clear Python cache: `python -m py_compile --clear-cache` (or delete `__pycache__` folders).
+3. Provide full console output of errors when seeking support.
 
 ## 📞 Support
 
