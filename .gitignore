@@ -49,7 +49,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
 lib64/
 parts/
 sdist/
@@ -76,14 +75,6 @@ env/
 logs/
 *.log
 
-# Python virtual environment
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-*.so
-
 # Environment variables
 .env
 .env.local
@@ -97,9 +88,6 @@ __pycache__/
 
 # Coverage
 coverage/
-
-# Package lock files (optional - some prefer to include these)
-# package-lock.json
 
 # Runtime data
 pids/
