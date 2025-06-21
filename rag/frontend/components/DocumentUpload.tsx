@@ -57,7 +57,7 @@ export default function DocumentUpload() {
     <div className="p-4 border rounded-lg bg-gray-50">
       <h2 className="text-lg font-semibold mb-2">Upload Documents</h2>
       <p className="text-sm text-gray-600 mb-4">
-        Upload PDF or text files about HSA and Maharashtra regulations
+        Upload PDF or text files for temporary analysis and chat. Documents will be processed but not permanently stored.
       </p>
       
       <div 
